@@ -11,100 +11,6 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Sunschool",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "sunschool/overview",
-              "sunschool/quickstart",
-              "sunschool/self-hosting"
-            ]
-          },
-          {
-            "group": "Guides",
-            "pages": [
-              "sunschool/guides/parent-guide",
-              "sunschool/guides/learner-experience",
-              "sunschool/guides/ai-and-prompts",
-              "sunschool/guides/gamification"
-            ]
-          },
-          {
-            "group": "Architecture",
-            "pages": [
-              "sunschool/guides/architecture",
-              "sunschool/guides/lesson-pipeline",
-              "sunschool/guides/image-generation"
-            ]
-          },
-          {
-            "group": "Contributing",
-            "pages": [
-              "sunschool/guides/contributing",
-              "sunschool/guides/testing"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Sunschool API",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "sunschool/api/introduction"
-            ]
-          },
-          {
-            "group": "Authentication",
-            "pages": [
-              "sunschool/api/register",
-              "sunschool/api/login",
-              "sunschool/api/logout",
-              "sunschool/api/get-user"
-            ]
-          },
-          {
-            "group": "Learners",
-            "pages": [
-              "sunschool/api/list-learners",
-              "sunschool/api/create-learner",
-              "sunschool/api/delete-learner",
-              "sunschool/api/get-learner-profile",
-              "sunschool/api/update-learner-profile"
-            ]
-          },
-          {
-            "group": "Lessons",
-            "pages": [
-              "sunschool/api/create-lesson",
-              "sunschool/api/get-active-lesson",
-              "sunschool/api/get-lesson",
-              "sunschool/api/list-lessons",
-              "sunschool/api/submit-answers"
-            ]
-          },
-          {
-            "group": "Progress & achievements",
-            "pages": [
-              "sunschool/api/get-achievements",
-              "sunschool/api/get-reports",
-              "sunschool/api/export-data"
-            ]
-          },
-          {
-            "group": "Points & rewards",
-            "pages": [
-              "sunschool/api/get-points-balance",
-              "sunschool/api/list-rewards",
-              "sunschool/api/create-reward",
-              "sunschool/api/redeem-reward"
-            ]
-          }
-        ]
-      },
-      {
         "tab": "All One Thing",
         "groups": [
           {
@@ -121,32 +27,32 @@
       "anchors": [
         {
           "anchor": "GitHub",
-          "href": "https://github.com/allonethingxyz/sunschool",
+          "href": "https://github.com/allonethingxyz",
           "icon": "github"
         },
         {
-          "anchor": "Sunschool",
-          "href": "https://sunschool.xyz",
+          "anchor": "Sunschool Docs",
+          "href": "https://docs.sunschool.xyz",
           "icon": "sun"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/sunschool.svg",
-    "dark": "/logo/sunschool.svg"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "links": [
       {
-        "label": "Community",
-        "href": "https://github.com/allonethingxyz/sunschool/issues"
+        "label": "Sunschool Docs",
+        "href": "https://docs.sunschool.xyz"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Launch Sunschool",
-      "href": "https://sunschool.xyz"
+      "label": "View Projects",
+      "href": "https://github.com/allonethingxyz"
     }
   },
   "contextual": {
