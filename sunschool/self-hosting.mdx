@@ -1,0 +1,93 @@
+---
+title: "Self-hosting"
+description: "Run your own Sunschool instance"
+---
+
+## Prerequisites
+
+- Node.js v20+ (v22 recommended)
+- PostgreSQL database (Neon serverless recommended)
+- An [OpenRouter](https://openrouter.ai) API key
+
+## Setup
+
+```bash
+git clone https://github.com/allonethingxyz/sunschool.git
+cd sunschool
+npm install
+```
+
+## Environment variables
+
+Create a `.env` file in the project root:
+
+```env
+# Required
+DATABASE_URL=postgresql://user:password@host:port/database
+JWT_SECRET=your-jwt-secret-key
+SESSION_SECRET=your-session-secret
+OPENROUTER_API_KEY=your-openrouter-key
+PORT=5000
+
+# Optional
+PERPLEXITY_API_KEY=your-perplexity-key
+NODE_ENV=development
+IMAGE_PROVIDER=svg-llm
+OPENROUTER_SVG_MODEL=google/gemini-3.1-pro-preview
+```
+
+<Warning>Keep your `.env` file out of version control. The `.gitignore` already excludes it.</Warning>
+
+## Run
+
+```bash
+# Development (with hot reload)
+npm run dev
+
+# Production build
+npm run build
+npm start
+```
+
+## Database
+
+Migrations run automatically on server startup. If you need to run them manually:
+
+```bash
+npm run migrate        # Run pending migrations
+npm run db:push        # Push schema changes
+npm run db:seed        # Seed with test data
+```
+
+The first user to register is automatically promoted to **Admin**.
+
+## Deploy to Railway
+
+Sunschool includes `railway.json` for one-click Railway deployment:
+
+1. Push to a GitHub repo
+2. Connect it to a Railway project
+3. Add environment variables in the Railway dashboard
+4. Railway auto-deploys on every push to `main`
+
+Health check endpoint: `GET /api/healthcheck`
+
+## Image generation
+
+Sunschool generates SVG illustrations for each lesson using AI. Configure the image provider:
+
+| `IMAGE_PROVIDER` | Behavior |
+|---|---|
+| `svg-llm` (default) | LLM-generated SVG illustrations via Gemini 3.1 |
+| `openrouter` | Raster images via OpenRouter multimodal models |
+| `stability` | Stability AI API |
+
+The system includes automatic model fallback chains — if the primary model is unavailable or over budget, cheaper alternatives are tried automatically.
+
+## AI providers
+
+| Provider | Purpose | Required env var |
+|----------|---------|-----------------|
+| **OpenRouter** (primary) | Lesson content, quizzes, SVG illustrations | `OPENROUTER_API_KEY` |
+| **Perplexity** (optional) | Knowledge context enrichment | `PERPLEXITY_API_KEY` |
+| **Bittensor** (experimental) | Decentralized LLM alternative | `BITTENSOR_API_KEY` |

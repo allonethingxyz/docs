@@ -1,0 +1,47 @@
+---
+title: "Create learner"
+api: "POST /api/learners"
+description: "Create a new child learner account"
+---
+
+<Note>Requires **PARENT** or **ADMIN** role.</Note>
+
+Creates a learner account linked to the authenticated parent. Also creates a learner profile with the specified grade level.
+
+## Request
+
+```json
+{
+  "name": "Emma",
+  "gradeLevel": 3
+}
+```
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Child's display name |
+| `gradeLevel` | number | Yes | Grade level (K=0, 1-12) |
+| `username` | string | No | Auto-generated if not provided |
+| `password` | string | No | Auto-generated if not provided |
+
+## Response
+
+```json
+{
+  "id": 5,
+  "username": "emma_abc123",
+  "name": "Emma",
+  "role": "LEARNER",
+  "parentId": 1,
+  "gradeLevel": 3
+}
+```
+
+### Errors
+
+| Status | Description |
+|--------|-------------|
+| 400 | Missing required fields |
+| 400 | Username already exists |

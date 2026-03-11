@@ -1,0 +1,51 @@
+---
+title: "Redeem reward"
+api: "POST /api/rewards/{rewardId}/redeem"
+description: "Request redemption of a reward"
+---
+
+<Note>Requires authentication (learner).</Note>
+
+Creates a redemption request. Points are held pending until the parent approves or rejects.
+
+## Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `rewardId` | number | Reward ID to redeem |
+
+## Request
+
+```json
+{
+  "learnerNotes": "I earned it!"
+}
+```
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `learnerNotes` | string | No | Optional note to parent |
+
+## Response
+
+```json
+{
+  "id": 1,
+  "learnerId": 5,
+  "rewardId": 1,
+  "tokensSpent": 50,
+  "status": "PENDING",
+  "requestedAt": "2026-03-11T00:00:00.000Z",
+  "learnerNotes": "I earned it!"
+}
+```
+
+### Errors
+
+| Status | Description |
+|--------|-------------|
+| 400 | Insufficient points |
+| 400 | Reward not active or max redemptions reached |
+| 404 | Reward not found |

@@ -1,0 +1,36 @@
+---
+title: "Update learner profile"
+api: "PUT /api/learner-profile/{userId}"
+description: "Update a learner's grade level, subjects, or other profile data"
+---
+
+<Note>Requires **PARENT** or **ADMIN** role.</Note>
+
+## Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `userId` | number | Learner user ID |
+
+## Request
+
+```json
+{
+  "gradeLevel": 4,
+  "subjects": ["Math", "Science", "History"]
+}
+```
+
+All fields are optional — only provided fields are updated.
+
+### Parameters
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `gradeLevel` | number | Grade level (0-12) |
+| `subjects` | string[] | Active subject list |
+| `graph` | object | Knowledge graph data |
+
+## Response
+
+Returns the updated learner profile.

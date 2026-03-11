@@ -1,0 +1,79 @@
+---
+title: "Architecture"
+description: "Technical overview of the Sunschool stack"
+---
+
+## Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 19 + TypeScript, React Native Web, React Query, Wouter, Vite |
+| Backend | Node.js 22, Express.js 5, JWT auth, Drizzle ORM |
+| Database | PostgreSQL (Neon serverless) |
+| AI | OpenRouter API (primary), Bittensor Subnet 1 (experimental), Perplexity |
+| Deployment | Railway (NIXPACKS), auto-deploy on push to `main` |
+| Testing | Jest (unit), Playwright (E2E) |
+
+## Project structure
+
+```
+client/                React frontend (Vite build)
+  src/
+    components/        Reusable UI components
+    pages/             Route-level page components
+    context/           React context providers (auth, mode)
+    hooks/             Custom React hooks
+    styles/            Theme system (parent/learner dual themes)
+server/                Express.js backend
+  services/            Business logic
+    enhanced-lesson-service.ts   Lesson generation pipeline
+    lesson-validator.ts          Content validation
+    svg-llm-service.ts           SVG illustration generation
+    image-generation-router.ts   Image fallback chain
+    points-service.ts            Points ledger
+    mastery-service.ts           Concept mastery tracking
+    quiz-tracking-service.ts     Quiz answer storage
+  prompts/grades/      Grade-specific AI prompt templates
+  config/              Environment vars and feature flags
+  middleware/          Auth middleware (JWT)
+shared/                TypeScript schemas and types
+drizzle/migrations/    Database migration SQL files
+tests/e2e/             Playwright end-to-end tests
+```
+
+## Database
+
+PostgreSQL with Neon serverless. Key tables:
+
+- **users** — Admin, Parent, and Learner accounts
+- **learner_profiles** — Grade level, subjects, knowledge graph
+- **lessons** — AI-generated lesson content (single `spec` column with `EnhancedLessonSpec`)
+- **quiz_answers** — Per-question answer tracking with concept tags
+- **achievements** — Auto-awarded milestone badges
+- **points_ledger** — Full transaction history for points
+- **learner_points** — Running balance per learner
+- **rewards** — Parent-managed reward catalog
+- **reward_redemptions** — Approval workflow for reward requests
+
+Migrations run automatically on server startup. The database enforces a partial unique index (`idx_one_active_per_learner`) ensuring each learner can only have one active lesson at a time.
+
+## Authentication
+
+JWT-based auth with configurable expiry (default: 7 days).
+
+- `POST /register` — Creates account, returns JWT token
+- `POST /login` — Validates credentials, returns JWT token
+- All `/api/*` routes require `Authorization: Bearer <token>` header
+- Role-based access: routes check for `ADMIN`, `PARENT`, or `LEARNER` roles
+
+## Feature flags
+
+Configured via environment variables in `server/config/flags.ts`:
+
+| Flag | Default | Purpose |
+|------|---------|---------|
+| `USE_AI` | `1` | Enable/disable AI features |
+| `ENABLE_SVG_LLM` | `1` | SVG illustration generation |
+| `ENABLE_OPENROUTER_IMAGES` | `1` | OpenRouter raster image generation |
+| `ENABLE_BITTENSOR_SUBNET_1` | `0` | Bittensor decentralized LLM |
+| `BITTENSOR_FALLBACK_ENABLED` | `0` | Auto-fallback to OpenRouter |

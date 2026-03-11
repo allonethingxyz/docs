@@ -1,0 +1,61 @@
+---
+title: "Testing"
+description: "Running unit and end-to-end tests"
+---
+
+## Unit tests
+
+```bash
+npm test
+```
+
+Jest unit tests cover core business logic.
+
+## End-to-end tests
+
+Playwright tests run against the live deployment or a local server.
+
+```bash
+# Against local server (auto-starts)
+npx playwright test
+
+# Against production
+PLAYWRIGHT_BASE_URL=https://sunschool.xyz npx playwright test
+```
+
+### Test suites
+
+| File | Coverage |
+|------|----------|
+| `child-lesson-flow.spec.ts` | Full parent-to-learner flow: register, add child, generate lesson, take quiz |
+| `workflow-validation.spec.ts` | All 24 workflows: public pages, parent dashboard, learner mode, SVG validation, quiz, progress, goals, reports, rewards |
+
+### Configuration
+
+Tests are configured in `playwright.config.ts`:
+
+- **Timeout** — 10 minutes per test (AI lesson generation can be slow)
+- **Screenshots** — Captured for every test, saved to `tests/e2e/screenshots/`
+- **Traces** — Captured on failure for debugging
+- **Viewport** — 1280x900
+
+### SVG rendering validation
+
+The E2E suite includes specific validation that SVG illustrations render correctly:
+
+1. Creates a lesson via the API
+2. Waits for background image generation to complete
+3. Checks the DOM for real SVG elements (not placeholder graphics)
+4. Validates that SVGs contain actual drawing elements (`path`, `circle`, `text`, etc.)
+
+### Running a specific test
+
+```bash
+PLAYWRIGHT_BASE_URL=https://sunschool.xyz npx playwright test -g "Quiz flow"
+```
+
+### Viewing test reports
+
+```bash
+npx playwright show-report tests/e2e/report
+```

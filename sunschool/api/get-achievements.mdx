@@ -1,0 +1,29 @@
+---
+title: "Get achievements"
+api: "GET /api/achievements"
+description: "List achievements for the authenticated user"
+---
+
+<Note>Requires authentication.</Note>
+
+## Query parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `learnerId` | number | Filter by learner ID (for parents viewing children) |
+
+## Response
+
+```json
+[
+  {
+    "id": 1,
+    "learnerId": 5,
+    "type": "FIRST_LESSON",
+    "payload": { "lessonId": "d034..." },
+    "tokenReward": 5,
+    "isRepeatable": false,
+    "awardedAt": "2026-03-11T00:00:00.000Z"
+  }
+]
+```

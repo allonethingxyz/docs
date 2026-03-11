@@ -1,0 +1,61 @@
+---
+title: "Create lesson"
+api: "POST /api/lessons/create"
+description: "Generate a new AI-powered lesson"
+---
+
+<Note>Requires authentication.</Note>
+
+Generates a new lesson using AI. The lesson text is returned immediately; SVG illustrations are generated in the background and can be polled for via `GET /api/lessons/:lessonId`.
+
+## Request
+
+```json
+{
+  "learnerId": 5,
+  "subject": "Math",
+  "category": "Fractions",
+  "gradeLevel": 3
+}
+```
+
+### Parameters
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `learnerId` | number | Yes | Target learner ID |
+| `subject` | string | Yes | Subject area |
+| `category` | string | No | Specific topic within the subject |
+| `gradeLevel` | number | No | Override grade level (defaults to learner's profile) |
+
+## Response
+
+```json
+{
+  "id": "d0343503-f02a-4335-bcf5-eec6ed871942",
+  "learnerId": 5,
+  "status": "ACTIVE",
+  "subject": "Math",
+  "category": "Fractions",
+  "difficulty": "beginner",
+  "spec": {
+    "title": "Understanding Fractions",
+    "sections": [...],
+    "questions": [...],
+    "images": [],
+    "diagrams": []
+  }
+}
+```
+
+<Note>The `images` and `diagrams` arrays may be empty initially. Poll `GET /api/lessons/:lessonId` until images appear (typically 5-15 seconds).</Note>
+
+### Errors
+
+| Status | Description |
+|--------|-------------|
+| 400 | Missing required fields |
+| 403 | Not authorized for this learner |
+| 503 | AI generation failed after retries |
+
+Each learner can only have one `ACTIVE` lesson at a time. Creating a new lesson retires the previous one.

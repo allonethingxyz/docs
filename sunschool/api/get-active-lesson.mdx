@@ -1,0 +1,35 @@
+---
+title: "Get active lesson"
+api: "GET /api/lessons/active"
+description: "Get the learner's current active lesson"
+---
+
+<Note>Requires authentication.</Note>
+
+Returns the currently active lesson for the specified learner, or `null` if no active lesson exists.
+
+## Query parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `learnerId` | number | Yes | Learner ID |
+
+## Response
+
+Returns the full lesson object including `spec` with sections, questions, images, and diagrams. Returns `null` if no active lesson.
+
+```json
+{
+  "id": "d0343503-f02a-4335-bcf5-eec6ed871942",
+  "learnerId": 5,
+  "status": "ACTIVE",
+  "subject": "Math",
+  "spec": {
+    "title": "Understanding Fractions",
+    "sections": [...],
+    "questions": [...],
+    "images": [...],
+    "diagrams": [...]
+  }
+}
+```

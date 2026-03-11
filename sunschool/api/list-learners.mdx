@@ -1,0 +1,30 @@
+---
+title: "List learners"
+api: "GET /api/learners"
+description: "List learner accounts for the authenticated parent"
+---
+
+<Note>Requires **PARENT** or **ADMIN** role.</Note>
+
+Returns all learner accounts belonging to the authenticated parent. Admins see all learners.
+
+## Query parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `parentId` | number | Filter by parent ID (admin only) |
+
+## Response
+
+```json
+[
+  {
+    "id": 5,
+    "username": "emma_learner",
+    "name": "Emma",
+    "role": "LEARNER",
+    "parentId": 1,
+    "createdAt": "2026-03-01T00:00:00.000Z"
+  }
+]
+```

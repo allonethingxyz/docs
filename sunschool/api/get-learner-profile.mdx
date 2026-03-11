@@ -1,0 +1,30 @@
+---
+title: "Get learner profile"
+api: "GET /api/learner-profile/{userId}"
+description: "Get a learner's academic profile"
+---
+
+<Note>Requires authentication. Parents can only access their own children's profiles.</Note>
+
+Returns the learner's academic profile including grade level, subjects, and knowledge graph.
+
+## Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `userId` | number | Learner user ID |
+
+## Response
+
+```json
+{
+  "id": 1,
+  "userId": 5,
+  "gradeLevel": 3,
+  "subjects": ["Math", "Science", "English"],
+  "graph": { "nodes": [], "edges": [] },
+  "subjectPerformance": {},
+  "recommendedSubjects": [],
+  "strugglingAreas": []
+}
+```

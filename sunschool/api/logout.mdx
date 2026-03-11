@@ -1,0 +1,17 @@
+---
+title: "Logout"
+api: "POST /logout"
+description: "End the current session"
+---
+
+## Request
+
+No request body required. The client should discard its stored JWT token.
+
+## Response
+
+```json
+{
+  "message": "Logged out"
+}
+```

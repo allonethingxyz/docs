@@ -1,0 +1,67 @@
+---
+title: "API reference"
+sidebarTitle: "Introduction"
+description: "Sunschool REST API"
+---
+
+## Base URL
+
+```
+https://sunschool.xyz
+```
+
+For self-hosted instances, replace with your deployment URL.
+
+## Authentication
+
+Most endpoints require a JWT token. Include it in the `Authorization` header:
+
+```
+Authorization: Bearer <token>
+```
+
+Obtain a token via `POST /register` or `POST /login`.
+
+## Roles
+
+Endpoints are restricted by user role:
+
+| Role | Access |
+|------|--------|
+| **ADMIN** | All endpoints |
+| **PARENT** | Learner management, reports, rewards, sync |
+| **LEARNER** | Lessons, quizzes, progress, points, achievements |
+
+Some endpoints are public (no auth required): health check, registration, login, public award share.
+
+## Response format
+
+All endpoints return JSON. Successful responses typically include the resource directly:
+
+```json
+{
+  "id": 1,
+  "username": "parent1",
+  "role": "PARENT"
+}
+```
+
+Error responses include an `error` field:
+
+```json
+{
+  "error": "Missing required fields"
+}
+```
+
+## Health check
+
+```
+GET /api/healthcheck
+```
+
+Returns `{ "status": "ok", "message": "Server is running" }`. No authentication required.
+
+## Rate limits
+
+The hosted version at sunschool.xyz does not currently enforce rate limits. Self-hosted instances can add rate limiting via middleware.

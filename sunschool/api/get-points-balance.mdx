@@ -1,0 +1,24 @@
+---
+title: "Get points balance"
+api: "GET /api/points/balance"
+description: "Get the learner's current point balance"
+---
+
+<Note>Requires authentication.</Note>
+
+## Query parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `learnerId` | number | Learner ID |
+
+## Response
+
+```json
+{
+  "learnerId": 5,
+  "currentBalance": 42,
+  "totalEarned": 67,
+  "totalRedeemed": 25
+}
+```
